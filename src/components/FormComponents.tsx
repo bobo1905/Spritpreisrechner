@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 export function FormComponents() {
@@ -8,6 +8,7 @@ export function FormComponents() {
     preis: "",
   });
 
+  const [validated, setValidated] = useState(false);
   const [endpreis, setEndpreis] = useState(0);
 
   function update(e: ChangeEvent<HTMLInputElement>) {
@@ -24,40 +25,79 @@ export function FormComponents() {
     setEndpreis(kosten);
   }
 
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      berechnung();
+    }
+
+    setValidated(true);
+  }
+
   return (
     <div>
-      <Form>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formVerbrauch">
           <Form.Label></Form.Label>
           <Form.Control
             type="number"
+            step="any"
             name="verbrauch"
+            min={0}
+            max={100}
+            required
             placeholder="Verbrauch in Liter"
             value={data.verbrauch}
             onChange={update}
           />
+          <Form.Control.Feedback type="invalid">
+            <h6 style={{ marginTop: "1rem" }}>
+              Bitte geben Sie einen Wert zwischen 0 und 100 ein.
+            </h6>
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formStrecke">
           <Form.Label></Form.Label>
           <Form.Control
             type="number"
+            step="any"
             name="strecke"
+            min={0}
+            max={40000}
+            required
             placeholder="Strecke in KM"
             value={data.strecke}
             onChange={update}
           />
+          <Form.Control.Feedback type="invalid">
+            <h6 style={{ marginTop: "1rem" }}>
+              Bitte geben Sie einen Wert zwischen 0 und 40.000 ein.
+            </h6>
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formSpritpreis">
           <Form.Label></Form.Label>
           <Form.Control
             type="number"
+            step="any"
             name="preis"
+            min={0}
+            max={50}
+            required
             placeholder="Preis in Euro pro Liter"
             value={data.preis}
             onChange={update}
           />
+          <Form.Control.Feedback type="invalid">
+            <h6 style={{ marginTop: "1rem" }}>
+              Bitte geben Sie einen Wert zwischen 0 und 50 ein.
+            </h6>
+          </Form.Control.Feedback>
         </Form.Group>
-        <Button variant="success" onClick={berechnung}>
+        <Button variant="success" type="submit">
           Berechnen
         </Button>
         <Form.Group
@@ -66,7 +106,7 @@ export function FormComponents() {
           style={{ marginTop: "2rem" }}
         >
           <Form.Label>Endpreis</Form.Label>
-          <Form.Control readOnly value={endpreis} />
+          <Form.Control readOnly value={endpreis + " " + "Euro"} />
         </Form.Group>
       </Form>
     </div>
