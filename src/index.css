@@ -1,4 +1,6 @@
 body {
+  display: flex;
+  justify-content: center;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +12,24 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/*new*/
+
+.navbar-brand {
+  display: flex;
+  align-items: center; 
+}
+
+.navbar-brand img {
+  margin-right: 10px; 
+}
+
+.navbar-brand h2 {
+  margin: 0; 
+}
+
+.container {
+  width: 40%; /* 40% für den Inhalt, d.h. 60% für die Ränder */
+  min-width: 600px;  /* Optional: Minimale Breite des Inhalts */
 }
