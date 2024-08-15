@@ -16,9 +16,8 @@ Die Anwendung wird durch eine Formularvalidierung abgerundet, Eingabewerte werde
 
 1. Projekt klonen:
 
-### `git clone https://github.com/dein-username/spritpreisrechner.git
-
-cd spritpreisrechner`
+### `git clone https://github.com/dein-username/spritpreisrechner.git`
+### `cd spritpreisrechner`
 
 2. Abhängigkeiten installieren:
    Stelle sicher, dass Node.js und npm installiert sind. Führe dann folgenden Befehl aus:
